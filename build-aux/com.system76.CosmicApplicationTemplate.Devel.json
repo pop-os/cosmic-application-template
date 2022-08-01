@@ -1,0 +1,40 @@
+{
+    "app-id": "com.system76.CosmicApplicationTemplate.Devel",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "42",
+    "sdk": "org.gnome.Sdk",
+    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
+    "command": "cosmic-application-template",
+    "finish-args" : [
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--env=RUST_LOG=cosmic_application_template=debug",
+        "--env=G_MESSAGES_DEBUG=none",
+        "--env=RUST_BACKTRACE=1"
+    ],
+    "build-options" : {
+        "append-path" : "/usr/lib/sdk/rust-stable/bin",
+        "build-args" : [
+            "--share=network"
+        ],
+        "test-args": [
+            "--socket=x11",
+            "--share=network"
+        ]
+    },
+    "modules": [
+        {
+            "name": "cosmic-application-template",
+            "buildsystem": "meson",
+            "run-tests": true,
+            "config-opts": ["-Dprofile=development", "-Dvendor=false"],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "../"
+                }
+            ]
+        }
+    ]
+}
