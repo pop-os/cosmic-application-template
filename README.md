@@ -33,7 +33,7 @@ python3 create-project.py
 
 ```shell
 ➜ python3 create-project.py
-Welcome to GTK Rust Template
+Welcome to Cosmic Application Template
 Name: Contrast
 Project Name: contrast
 Application ID (e.g. org.domain.MyAwesomeApp, see: https://developer.gnome.org/ChooseApplicationID/): org.gnome.design.Contrast
@@ -45,7 +45,7 @@ A new directory named `contrast` containing the generated project
 
 ## Building the project
 
-Gnome Builder works well for building the project as a flatpak during development. (It may be helpful to also install rust-analyzer and add it to [PATH](https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary).
+Gnome Builder works well for building the project as a flatpak during development. (It may be helpful to also install rust-analyzer and add it to [PATH](https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary).)
 
 ### Builing a deb
 `dpkg-buildpackage -b -d`
