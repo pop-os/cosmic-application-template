@@ -6,16 +6,20 @@ use crate::application::ExampleApplication;
 use crate::config::{APP_ID, PROFILE};
 
 mod imp {
+    use gtk4::gio::SettingsSchemaSource;
+
     use super::*;
 
     pub struct ExampleApplicationWindow {
-        pub settings: gio::Settings,
+        pub settings: Option<gio::Settings>,
     }
 
     impl Default for ExampleApplicationWindow {
         fn default() -> Self {
             Self {
-                settings: gio::Settings::new(APP_ID),
+                settings: SettingsSchemaSource::default()
+                    .and_then(|s| s.lookup(APP_ID, true))
+                    .map(|_| gio::Settings::new(APP_ID)),
             }
         }
     }
@@ -79,11 +83,13 @@ impl ExampleApplicationWindow {
 
         let (width, height) = self.default_size();
 
-        imp.settings.set_int("window-width", width)?;
-        imp.settings.set_int("window-height", height)?;
-
-        imp.settings
-            .set_boolean("is-maximized", self.is_maximized())?;
+        if let Some(settings) = imp.settings.as_ref() {
+            settings.set_int("window-width", width)?;
+            settings.set_int("window-height", height)?;
+    
+            settings
+                .set_boolean("is-maximized", self.is_maximized())?;
+        }
 
         Ok(())
     }
@@ -91,14 +97,16 @@ impl ExampleApplicationWindow {
     fn load_window_size(&self) {
         let imp = self.imp();
 
-        let width = imp.settings.int("window-width");
-        let height = imp.settings.int("window-height");
-        let is_maximized = imp.settings.boolean("is-maximized");
-
-        self.set_default_size(width, height);
-
-        if is_maximized {
-            self.maximize();
+        if let Some(settings) = imp.settings.as_ref() {
+            let width = settings.int("window-width");
+            let height = settings.int("window-height");
+            let is_maximized = settings.boolean("is-maximized");
+    
+            self.set_default_size(width, height);
+    
+            if is_maximized {
+                self.maximize();
+            }
         }
     }
 }

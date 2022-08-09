@@ -5,7 +5,7 @@ use gtk4::prelude::*;
 use gtk4::subclass::prelude::*;
 use gtk4::{gdk, gio, glib};
 
-use crate::config::{APP_ID, PKGDATADIR, PROFILE, VERSION};
+use crate::config::{APP_ID, PROFILE, VERSION};
 use crate::fl;
 use crate::window::ExampleApplicationWindow;
 
@@ -142,7 +142,6 @@ impl ExampleApplication {
     pub fn run(&self) {
         info!("Cosmic Application Template ({})", APP_ID);
         info!("Version: {} ({})", VERSION, PROFILE);
-        info!("Datadir: {}", PKGDATADIR);
 
         ApplicationExtManual::run(self);
     }
