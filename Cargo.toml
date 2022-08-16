@@ -10,10 +10,13 @@ pretty_env_logger = "0.4"
 once_cell = "1.9"
 relm4-macros = { git = "https://github.com/Relm4/Relm4.git", branch = "next" }
 gtk4 = { git = "https://github.com/gtk-rs/gtk4-rs" }
+adw = { git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs", package = "libadwaita"}
+xdg = "2.4.0"
 # Application i18n
 i18n-embed = { version = "0.13.4", features = ["fluent-system", "desktop-requester"] }
 i18n-embed-fl = "0.6.4"
 rust-embed = "6.3.0"
+adw-user-colors-lib = { git = "https://github.com/pop-os/user-color-editor" }
 
 [build-dependencies]
 glib-build-tools = { git = "https://github.com/gtk-rs/gtk-rs-core" }

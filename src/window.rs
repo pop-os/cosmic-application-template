@@ -86,9 +86,8 @@ impl ExampleApplicationWindow {
         if let Some(settings) = imp.settings.as_ref() {
             settings.set_int("window-width", width)?;
             settings.set_int("window-height", height)?;
-    
-            settings
-                .set_boolean("is-maximized", self.is_maximized())?;
+
+            settings.set_boolean("is-maximized", self.is_maximized())?;
         }
 
         Ok(())
@@ -101,9 +100,9 @@ impl ExampleApplicationWindow {
             let width = settings.int("window-width");
             let height = settings.int("window-height");
             let is_maximized = settings.boolean("is-maximized");
-    
+
             self.set_default_size(width, height);
-    
+
             if is_maximized {
                 self.maximize();
             }
