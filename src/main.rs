@@ -10,8 +10,7 @@ use self::application::ExampleApplication;
 use localize::localize;
 
 fn main() {
-    let _ = gtk4::init();
-    adw::init();
+    let _ = libcosmic::init();
 
     // Initialize logger
     pretty_env_logger::init();

@@ -112,6 +112,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "cascade"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f18c6a921baae2d947e4cf96f6ef1b5774b3056ae8edbdf5c5cfce4f33260921"
+
+[[package]]
 name = "cfg-expr"
 version = "0.10.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -136,6 +142,7 @@ dependencies = [
  "i18n-embed",
  "i18n-embed-fl",
  "libadwaita",
+ "libcosmic",
  "log",
  "once_cell",
  "pretty_env_logger",
@@ -793,6 +800,19 @@ name = "libc"
 version = "0.2.131"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "04c3b4822ccebfa39c02fc03d1534441b22ead323fa0f48bb7ddd8e6ba076a40"
+
+[[package]]
+name = "libcosmic"
+version = "0.1.0"
+source = "git+https://github.com/pop-os/libcosmic#8485b82e9ec74b5d51ca83625e786f9c34b60a4b"
+dependencies = [
+ "adw-user-colors-lib",
+ "cascade",
+ "gtk4",
+ "libadwaita",
+ "once_cell",
+ "xdg",
+]
 
 [[package]]
 name = "locale_config"
