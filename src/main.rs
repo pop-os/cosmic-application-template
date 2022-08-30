@@ -1,12 +1,12 @@
-mod application;
+mod _components;
+mod components;
 #[rustfmt::skip]
 mod config;
 mod localize;
-mod window;
 
-use gtk4::{gio, glib};
+use relm4::{adw::{gio, glib}, RelmApp};
 
-use self::application::ExampleApplication;
+use _components::{ExampleApplication, app_model::AppModel};
 use localize::localize;
 
 fn main() {
@@ -23,5 +23,7 @@ fn main() {
     glib::set_application_name(&fl!("app-name"));
 
     let app = ExampleApplication::new();
-    app.run();
+    let relm_app = RelmApp::with_app(app.clone());
+    relm_app.run::<AppModel>(());
+    // app.run();
 }

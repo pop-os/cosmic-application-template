@@ -44,6 +44,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "async-broadcast"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6d26004fe83b2d1cd3a97609b21e39f9a31535822210fe83205d2ce48866ea61"
+dependencies = [
+ "event-listener",
+ "futures-core",
+ "parking_lot",
+]
+
+[[package]]
+name = "async-oneshot"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ec7c75bcbcb0139e9177f30692fd617405ca4e0c27802e128d53171f7042e2c"
+dependencies = [
+ "futures-micro",
+]
+
+[[package]]
 name = "atty"
 version = "0.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -86,6 +106,12 @@ checksum = "4152116fd6e9dadb291ae18fc1ec3575ed6d84c29642d97890f4b4a3417297e4"
 dependencies = [
  "generic-array",
 ]
+
+[[package]]
+name = "bumpalo"
+version = "3.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c1ad822118d20d2c234f427000d5acc36eabe1e29a348c89b63dd60b13f28e5d"
 
 [[package]]
 name = "cairo-rs"
@@ -136,17 +162,18 @@ name = "cosmic-application-template"
 version = "0.1.0"
 dependencies = [
  "adw-user-colors-lib",
+ "futures",
  "glib-build-tools",
- "gtk4",
  "i18n-embed",
  "i18n-embed-fl",
- "libadwaita",
  "libcosmic",
  "log",
  "once_cell",
  "pretty_env_logger",
- "relm4-macros",
+ "relm4",
  "rust-embed",
+ "tokio",
+ "tracker",
  "xdg",
 ]
 
@@ -214,6 +241,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "event-listener"
+version = "2.5.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0206175f82b8d6bf6652ff7d71a1e27fd2e4efde587fd368662814d6ec1d9ce0"
+
+[[package]]
 name = "field-offset"
 version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -277,6 +310,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "flume"
+version = "0.10.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1657b4441c3403d9f7b3409e47575237dac27b1b5726df654a6ecbf92f0f7577"
+dependencies = [
+ "futures-core",
+ "futures-sink",
+ "nanorand",
+ "pin-project",
+ "spin",
+]
+
+[[package]]
+name = "fragile"
+version = "1.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "85dcb89d2b10c5f6133de2efd8c11959ce9dbb46a2f7a4cab208c4eeda6ce1ab"
+
+[[package]]
 name = "futures"
 version = "0.3.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -333,6 +385,15 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "futures-micro"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b460264b3593d68b16a7bc35f7bc226ddfebdf9a1c8db1ed95d5cc6b7168c826"
+dependencies = [
+ "pin-project-lite",
 ]
 
 [[package]]
@@ -437,8 +498,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4eb1a864a501629691edf6c15a593b7a51eebaa1e8468e9ddc623de7c9b58ec6"
 dependencies = [
  "cfg-if",
+ "js-sys",
  "libc",
  "wasi",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -758,6 +821,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "js-sys"
+version = "0.3.59"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "258451ab10b34f8af53416d1fdab72c22e805f0c92a1136d59470ec0b11138b2"
+dependencies = [
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -870,12 +942,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "nanorand"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a51313c5820b0b02bd422f4b44776fbf47961755c74ce64afc73bfad10226c3"
+dependencies = [
+ "getrandom",
+]
+
+[[package]]
 name = "num-traits"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "578ede34cf02f8924ab9447f50c28075b4d3e5b269972345e7e0372b38c6cdcd"
 dependencies = [
  "autocfg",
+]
+
+[[package]]
+name = "num_cpus"
+version = "1.13.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "19e64526ebdee182341572e50e9ad03965aa510cd94427a4549448f285e957a1"
+dependencies = [
+ "hermit-abi",
+ "libc",
 ]
 
 [[package]]
@@ -1044,6 +1135,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "pin-project"
+version = "1.0.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ad29a609b6bcd67fee905812e544992d216af9d755757c05ed2d0e15a74c6ecc"
+dependencies = [
+ "pin-project-internal",
+]
+
+[[package]]
+name = "pin-project-internal"
+version = "1.0.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "069bdb1e05adc7a8990dce9cc75370895fbe4e3d58b9b73bf1aee56359344a55"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "pin-project-lite"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1183,9 +1294,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a3f87b73ce11b1619a3c6332f45341e0047173771e8b8b73f87bfeefb7b56244"
 
 [[package]]
+name = "relm4"
+version = "0.5.0-beta.2"
+source = "git+https://github.com/Relm4/Relm4#643c26666fc98da986c9c612eaebcca37a2fe0f6"
+dependencies = [
+ "async-broadcast",
+ "async-oneshot",
+ "flume",
+ "fragile",
+ "futures",
+ "gtk4",
+ "libadwaita",
+ "log",
+ "once_cell",
+ "relm4-macros",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "relm4-macros"
-version = "0.5.0-beta.1"
-source = "git+https://github.com/Relm4/Relm4.git?branch=next#55231e300ce9e2b51d66f078b7759eba0759537c"
+version = "0.5.0-beta.2"
+source = "git+https://github.com/Relm4/Relm4#643c26666fc98da986c9c612eaebcca37a2fe0f6"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1346,6 +1476,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2fd0db749597d91ff862fd1d55ea87f7855a744a8425a64695b6fca237d1dad1"
 
 [[package]]
+name = "spin"
+version = "0.9.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f6002a767bff9e83f8eeecf883ecb8011875a21ae8da43bffb817a57e78cc09"
+dependencies = [
+ "lock_api",
+]
+
+[[package]]
 name = "strsim"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1411,12 +1550,89 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "29738eedb4388d9ea620eeab9384884fc3f06f586a2eddb56bedc5885126c7c1"
 
 [[package]]
+name = "tokio"
+version = "1.20.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7a8325f63a7d4774dd041e363b2409ed1c5cbbd0f867795e661df066b2b0a581"
+dependencies = [
+ "autocfg",
+ "num_cpus",
+ "once_cell",
+ "pin-project-lite",
+ "tokio-macros",
+]
+
+[[package]]
+name = "tokio-macros"
+version = "1.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9724f9a975fb987ef7a3cd9be0350edcbe130698af5b8f7a631e23d42d052484"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "toml"
 version = "0.5.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d82e1a7758622a465f8cee077614c73484dac5b836c02ff6a40d5d1010324d7"
 dependencies = [
  "serde",
+]
+
+[[package]]
+name = "tracing"
+version = "0.1.36"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2fce9567bd60a67d08a16488756721ba392f24f29006402881e43b19aac64307"
+dependencies = [
+ "cfg-if",
+ "log",
+ "pin-project-lite",
+ "tracing-attributes",
+ "tracing-core",
+]
+
+[[package]]
+name = "tracing-attributes"
+version = "0.1.22"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "11c75893af559bc8e10716548bdef5cb2b983f8e637db9d0e15126b61b484ee2"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "tracing-core"
+version = "0.1.29"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5aeea4303076558a00714b823f9ad67d58a3bbda1df83d8827d21193156e22f7"
+dependencies = [
+ "once_cell",
+]
+
+[[package]]
+name = "tracker"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e66d89d37f24af7a53e394a412441c803df73f1a5adfcb3b9c37a2e0a75392eb"
+dependencies = [
+ "tracker-macros",
+]
+
+[[package]]
+name = "tracker-macros"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8ca57dc00ed70e0acce16b1a4994ba9caf7718b9247382285d5e5192d3f6cd8d"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -1493,6 +1709,60 @@ name = "wasi"
 version = "0.11.0+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
+
+[[package]]
+name = "wasm-bindgen"
+version = "0.2.82"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fc7652e3f6c4706c8d9cd54832c4a4ccb9b5336e2c3bd154d5cccfbf1c1f5f7d"
+dependencies = [
+ "cfg-if",
+ "wasm-bindgen-macro",
+]
+
+[[package]]
+name = "wasm-bindgen-backend"
+version = "0.2.82"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "662cd44805586bd52971b9586b1df85cdbbd9112e4ef4d8f41559c334dc6ac3f"
+dependencies = [
+ "bumpalo",
+ "log",
+ "once_cell",
+ "proc-macro2",
+ "quote",
+ "syn",
+ "wasm-bindgen-shared",
+]
+
+[[package]]
+name = "wasm-bindgen-macro"
+version = "0.2.82"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b260f13d3012071dfb1512849c033b1925038373aea48ced3012c09df952c602"
+dependencies = [
+ "quote",
+ "wasm-bindgen-macro-support",
+]
+
+[[package]]
+name = "wasm-bindgen-macro-support"
+version = "0.2.82"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5be8e654bdd9b79216c2929ab90721aa82faf65c48cdf08bdc4e7f51357b80da"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+ "wasm-bindgen-backend",
+ "wasm-bindgen-shared",
+]
+
+[[package]]
+name = "wasm-bindgen-shared"
+version = "0.2.82"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6598dd0bd3c7d51095ff6531a5b23e02acdc81804e30d8f07afb77b7215a140a"
 
 [[package]]
 name = "winapi"
