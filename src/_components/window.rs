@@ -1,12 +1,9 @@
-use gtk4::prelude::*;
-use gtk4::subclass::prelude::*;
-use gtk4::{gio, glib};
-
-use crate::application::ExampleApplication;
+use relm4::adw::{prelude::*, subclass::prelude::*, gio, glib, gtk};
+use crate::ExampleApplication;
 use crate::config::{APP_ID, PROFILE};
 
 mod imp {
-    use gtk4::gio::SettingsSchemaSource;
+    use gtk::gio::SettingsSchemaSource;
 
     use super::*;
 
@@ -28,7 +25,7 @@ mod imp {
     impl ObjectSubclass for ExampleApplicationWindow {
         const NAME: &'static str = "ExampleApplicationWindow";
         type Type = super::ExampleApplicationWindow;
-        type ParentType = gtk4::ApplicationWindow;
+        type ParentType = gtk::ApplicationWindow;
 
         fn class_init(_: &mut Self::Class) {}
 
@@ -53,7 +50,7 @@ mod imp {
     impl WidgetImpl for ExampleApplicationWindow {}
     impl WindowImpl for ExampleApplicationWindow {
         // Save window state on delete event
-        fn close_request(&self, window: &Self::Type) -> gtk4::Inhibit {
+        fn close_request(&self, window: &Self::Type) -> gtk::Inhibit {
             if let Err(err) = window.save_window_size() {
                 log::warn!("Failed to save window state, {}", &err);
             }
@@ -68,8 +65,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct ExampleApplicationWindow(ObjectSubclass<imp::ExampleApplicationWindow>)
-        @extends gtk4::Widget, gtk4::Window, gtk4::ApplicationWindow,
-        @implements gio::ActionMap, gio::ActionGroup, gtk4::Root;
+        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow,
+        @implements gio::ActionMap, gio::ActionGroup, gtk::Root;
 }
 
 impl ExampleApplicationWindow {

@@ -1,31 +1,25 @@
 use log::{debug, info};
 
-use glib::clone;
-use gtk4::prelude::*;
-use gtk4::subclass::prelude::*;
-use gtk4::{gdk, gio, glib};
-
+use relm4::{adw::{gdk, gio, glib, gtk, prelude::*, subclass::prelude::*}};
 use crate::config::{APP_ID, PROFILE, VERSION};
 use crate::fl;
-use crate::window::ExampleApplicationWindow;
+use crate::_components::ExampleApplicationWindow;
 
 mod imp {
     use super::*;
     use glib::WeakRef;
-    use gtk4::gio::FileMonitor;
     use once_cell::sync::OnceCell;
 
     #[derive(Debug, Default)]
     pub struct ExampleApplication {
         pub window: OnceCell<WeakRef<ExampleApplicationWindow>>,
-        pub monitor: OnceCell<FileMonitor>,
     }
 
     #[glib::object_subclass]
     impl ObjectSubclass for ExampleApplication {
         const NAME: &'static str = "ExampleApplication";
         type Type = super::ExampleApplication;
-        type ParentType = gtk4::Application;
+        type ParentType = gtk::Application;
     }
 
     impl ObjectImpl for ExampleApplication {}
@@ -35,16 +29,12 @@ mod imp {
             debug!("GtkApplication<ExampleApplication>::activate");
             self.parent_activate(app);
 
-            if let Some(window) = self.window.get() {
-                let window = window.upgrade().unwrap();
-                window.present();
-                return;
+            if self.window.get().is_none() {
+                let window = ExampleApplicationWindow::new(app);
+                self.window
+                    .set(window.downgrade())
+                    .expect("Window already set.");
             }
-
-            let window = ExampleApplicationWindow::new(app);
-            self.window
-                .set(window.downgrade())
-                .expect("Window already set.");
 
             app.main_window().present();
         }
@@ -54,7 +44,7 @@ mod imp {
             self.parent_startup(app);
 
             // Set icons for shell
-            gtk4::Window::set_default_icon_name(APP_ID);
+            gtk::Window::set_default_icon_name(APP_ID);
 
             app.setup_css();
             app.setup_gactions();
@@ -67,7 +57,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct ExampleApplication(ObjectSubclass<imp::ExampleApplication>)
-        @extends gio::Application, gtk4::Application,
+        @extends gio::Application, gtk::Application,
         @implements gio::ActionMap, gio::ActionGroup;
 }
 
@@ -90,14 +80,20 @@ impl ExampleApplication {
         .expect("Application initialization failed...")
     }
 
-    fn main_window(&self) -> ExampleApplicationWindow {
-        self.imp().window.get().unwrap().upgrade().unwrap()
+    pub fn main_window(&self) -> ExampleApplicationWindow {
+        if let Some(w) = self.imp().window.get() {
+            w.upgrade().unwrap()
+        } else {
+            let w = ExampleApplicationWindow::new(self);
+            self.imp().window.set(w.downgrade()).unwrap();
+            w
+        }
     }
 
     fn setup_gactions(&self) {
         // Quit
         let action_quit = gio::SimpleAction::new("quit", None);
-        action_quit.connect_activate(clone!(@weak self as app => move |_, _| {
+        action_quit.connect_activate(glib::clone!(@weak self as app => move |_, _| {
             // This is needed to trigger the delete event and saving the window state
             app.main_window().close();
             app.quit();
@@ -106,7 +102,7 @@ impl ExampleApplication {
 
         // About
         let action_about = gio::SimpleAction::new("about", None);
-        action_about.connect_activate(clone!(@weak self as app => move |_, _| {
+        action_about.connect_activate(glib::clone!(@weak self as app => move |_, _| {
             app.show_about_dialog();
         }));
         self.add_action(&action_about);
@@ -118,22 +114,22 @@ impl ExampleApplication {
     }
 
     fn setup_css(&self) {
-        let provider = gtk4::CssProvider::new();
+        let provider = gtk::CssProvider::new();
         provider.load_from_resource("/com/system76/CosmicApplicationTemplate/style.css");
         if let Some(display) = gdk::Display::default() {
-            gtk4::StyleContext::add_provider_for_display(
+            gtk::StyleContext::add_provider_for_display(
                 &display,
                 &provider,
-                gtk4::STYLE_PROVIDER_PRIORITY_APPLICATION,
+                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
             );
         }
     }
 
     fn show_about_dialog(&self) {
-        let dialog = gtk4::AboutDialog::builder()
+        let dialog = gtk::AboutDialog::builder()
             .logo_icon_name(APP_ID)
             // Insert your license of choice here
-            // .license_type(gtk4::License::MitX11)
+            // .license_type(gtk::License::MitX11)
             // Insert your website here
             // .website("https://gitlab.gnome.org/bilelmoussaoui/cosmic-application-template/")
             .version(VERSION)
