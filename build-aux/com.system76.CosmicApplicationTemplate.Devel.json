@@ -6,12 +6,14 @@
     "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
     "command": "cosmic-application-template",
     "finish-args" : [
-        "--socket=fallback-x11",
         "--socket=wayland",
+        "--talk-name=org.gtk.vfs.*",
+        "--filesystem=xdg-run/gvfsd",
         "--device=dri",
-        "--env=RUST_LOG=cosmic_application_template=debug",
+        "--env=RUST_LOG=user_color_editor=debug",
         "--env=G_MESSAGES_DEBUG=none",
-        "--env=RUST_BACKTRACE=1"
+        "--env=RUST_BACKTRACE=1",
+        "--filesystem=xdg-config/gtk-4.0:ro"
     ],
     "build-options" : {
         "append-path" : "/usr/lib/sdk/rust-stable/bin",
