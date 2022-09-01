@@ -10,7 +10,6 @@ Build-Depends:
   libgtk-4-dev,
   libadwaita-1-dev,
   meson,
-  ninja,
   pkg-config,
   desktop-file-utils,
 Standards-Version: 4.3.0
