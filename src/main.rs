@@ -5,15 +5,12 @@ mod localize;
 
 use config::APP_ID;
 use log::info;
-use relm4::{adw::{gio, glib, gtk, gdk, builders::ApplicationBuilder}, RelmApp};
 
 use localize::localize;
 
-use crate::{config::{VERSION, PROFILE}, components::example::Example};
+use crate::{config::{VERSION, PROFILE}, components::example};
 
-fn main() {
-    let _monitors = libcosmic::init();
-
+fn main() -> iced::Result {
     // Initialize logger
     pretty_env_logger::init();
     info!("Cosmic Application Template ({})", APP_ID);
@@ -22,25 +19,5 @@ fn main() {
     // Prepare i18n
     localize();
 
-    gio::resources_register_include!("compiled.gresource").unwrap();
-
-    glib::set_application_name(&fl!("app-name"));
-
-    let app = ApplicationBuilder::new()
-    .resource_base_path("/com/system76/CosmicApplicationTemplate/")
-    .flags(gio::ApplicationFlags::empty())
-    .build();
-    let relm_app = RelmApp::with_app(app);
-    
-    let provider = gtk::CssProvider::new();
-    provider.load_from_resource("/com/system76/CosmicApplicationTemplate/style.css");
-    if let Some(display) = gdk::Display::default() {
-        gtk::StyleContext::add_provider_for_display(
-            &display,
-            &provider,
-            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-        );
-    }
-    
-    relm_app.run::<Example>(0);
+    example::run()
 }
