@@ -7,8 +7,6 @@ Build-Depends:
   debhelper-compat (= 11),
   rustc (>=1.57),
   cargo,
-  libgtk-4-dev,
-  libadwaita-1-dev,
   meson,
   pkg-config,
   desktop-file-utils,
