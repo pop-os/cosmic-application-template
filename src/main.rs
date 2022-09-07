@@ -8,7 +8,10 @@ use log::info;
 
 use localize::localize;
 
-use crate::{config::{VERSION, PROFILE}, components::example};
+use crate::{
+    components::example,
+    config::{PROFILE, VERSION},
+};
 
 fn main() -> iced::Result {
     // Initialize logger

@@ -5,9 +5,9 @@ authors = ["Ashley Wulber <ashley@system76.com>"]
 edition = "2021"
 
 [dependencies]
-iced = { git = "https://github.com/iced-rs/iced", features = ["wgpu", "default_system_font", "palette", "svg", "image", "tokio"] }
-iced_native = { git = "https://github.com/iced-rs/iced" }
-iced_style = { git = "https://github.com/iced-rs/iced" }
+iced = { git = "https://github.com/wash2/iced", features = ["wgpu", "default_system_font", "palette", "svg", "image", "tokio"], branch = "custom-theme" }
+iced_native = { git = "https://github.com/wash2/iced", branch = "custom-theme"  }
+iced_style = { git = "https://github.com/wash2/iced", branch = "custom-theme"  }
 csscolorparser = "0.6.2"
 palette = { version = "0.6.1", features = ["serializing"] }
 
@@ -15,7 +15,6 @@ log = "0.4"
 pretty_env_logger = "0.4"
 once_cell = "1.9"
 futures = "0.3.21"
-libcosmic = { git = "https://github.com/pop-os/libcosmic", default-features = false }
 xdg = "2.4.0"
 # Application i18n
 i18n-embed = { version = "0.13.4", features = ["fluent-system", "desktop-requester"] }
