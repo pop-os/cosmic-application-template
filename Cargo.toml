@@ -8,8 +8,7 @@ edition = "2021"
 iced = { git = "https://github.com/wash2/iced", features = ["wgpu", "default_system_font", "palette", "svg", "image", "tokio"], branch = "custom-theme" }
 iced_native = { git = "https://github.com/wash2/iced", branch = "custom-theme"  }
 iced_style = { git = "https://github.com/wash2/iced", branch = "custom-theme"  }
-csscolorparser = "0.6.2"
-palette = { version = "0.6.1", features = ["serializing"] }
+adw-user-colors-lib = { git = "https://github.com/pop-os/user-color-editor" }
 
 log = "0.4"
 pretty_env_logger = "0.4"
@@ -20,4 +19,4 @@ xdg = "2.4.0"
 i18n-embed = { version = "0.13.4", features = ["fluent-system", "desktop-requester"] }
 i18n-embed-fl = "0.6.4"
 rust-embed = "6.3.0"
-adw-user-colors-lib = { git = "https://github.com/pop-os/user-color-editor" }
+
