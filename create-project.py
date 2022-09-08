@@ -28,6 +28,7 @@ CURRENT_APP_ID = "com.system76.CosmicApplicationTemplate"
 CURRENT_PROJECT_NAME = "cosmic-application-template"
 CURRENT_PROJECT_NAME_ALT = "cosmic_application_template"
 CURRENT_NAME = "Cosmic Application Template"
+CURRENT_NAME_NO_SPACE = "CosmicApplicationTemplate"
 CURRENT_AUTHOR = "Ashley Wulber"
 CURRENT_EMAIL = "ashley@system76.com"
 CURRENT_APP_PATH = "/com/system76/CosmicApplicationTemplate/"
@@ -57,7 +58,6 @@ items_to_copy = [
     Path(".gitignore"),
     Path(".gitlab-ci.yml"),
     Path("Cargo.toml"),
-    Path("build.rs"),
     Path("meson_options.txt"),
     Path("meson.build"),
     Path("README.md"),
@@ -69,6 +69,7 @@ items_to_copy = [
 for item in items_to_copy:
     item_path = Path(item)
     if item_path.is_dir():
+        print(item_path)
         shutil.copytree(item_path, project_dir / item)
     else:
         shutil.copyfile(item_path, project_dir / item)
@@ -79,10 +80,9 @@ files_with_content_to_rename = [
     Path("data") / "com.system76.CosmicApplicationTemplate.desktop.in.in",
     Path("data") / "com.system76.CosmicApplicationTemplate.gschema.xml.in",
     Path("data") / "com.system76.CosmicApplicationTemplate.metainfo.xml.in.in",
-    Path("data") / "resources" / "resources.gresource.xml",
     Path("po") / "POTFILES.in",
     Path("src") / "main.rs",
-    Path("src") / "components" / "example.rs",
+    Path("src") / "components" / "app.rs",
     Path("Cargo.toml"),
     Path("meson.build"),
     Path("meson_options.txt"),
@@ -105,6 +105,7 @@ for file in files_with_content_to_rename:
         content = content.replace(CURRENT_PROJECT_NAME, project_name)
         content = content.replace(CURRENT_PROJECT_NAME_ALT, project_name_alt)
         content = content.replace(CURRENT_NAME, name)
+        content = content.replace(CURRENT_NAME_NO_SPACE, name.replace(" ", ""))
         content = content.replace(CURRENT_AUTHOR, author)
         content = content.replace(CURRENT_EMAIL, update_contact)
 
