@@ -9,7 +9,7 @@ use log::info;
 use localize::localize;
 
 use crate::{
-    components::example,
+    components::app,
     config::{PROFILE, VERSION},
 };
 
@@ -22,5 +22,5 @@ fn main() -> iced::Result {
     // Prepare i18n
     localize();
 
-    example::run()
+    app::run()
 }

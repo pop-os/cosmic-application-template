@@ -7,10 +7,12 @@ use iced::widget::{
 };
 use iced::{Alignment, Element, Length, Settings, Theme, Application, executor, Command, Subscription};
 
+use crate::config;
+
 pub fn run() -> iced::Result {
     let mut settings = Settings::default();
     settings.window.decorations = false;
-    ExampleApplet::run(settings)
+    CosmicApplicationTemplate::run(settings)
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
@@ -21,7 +23,7 @@ enum ThemeType {
 }
 
 #[derive(Default)]
-struct ExampleApplet {
+struct CosmicApplicationTemplate {
     custom_theme: Theme,
     theme: Theme,
     input_value: String,
@@ -41,7 +43,7 @@ enum Message {
     TogglerToggled(bool),
 }
 
-impl Application for ExampleApplet {
+impl Application for CosmicApplicationTemplate {
     type Message = Message;
     type Theme = Theme;
     type Executor = executor::Default;
@@ -49,13 +51,13 @@ impl Application for ExampleApplet {
     
     fn new(_flags: ()) -> (Self, Command<Message>) {
         (
-            ExampleApplet::default(),
+            CosmicApplicationTemplate::default(),
             Command::none(),
         )
     }
 
     fn title(&self) -> String {
-        String::from("Example - Iced")
+        config::APP_ID.to_string()
     }
 
     fn update(&mut self, message: Message) -> Command<Message>{
