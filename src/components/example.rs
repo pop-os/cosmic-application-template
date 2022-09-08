@@ -8,21 +8,10 @@ use iced::widget::{
 use iced::{Alignment, Element, Length, Settings, Theme, Application, executor, Command, Subscription};
 
 pub fn run() -> iced::Result {
-    // let palette = Palette {
-    //     background: Color::from_rgb(1.0, 0.9, 1.0),
-    //     text: Color::BLACK,
-    //     primary: Color::from_rgb(0.5, 0.5, 0.0),
-    //     success: Color::from_rgb(0.0, 1.0, 0.0),
-    //     danger: Color::from_rgb(1.0, 0.0, 0.0),
-    // };
-    // let extended = Extended::generate(palette);
-    // CUSTOM_THEME
-    //     .set(Theme::Custom { palette, extended })
-    //     .unwrap();
-    Styling::run(Settings::default())
+    let mut settings = Settings::default();
+    settings.window.decorations = false;
+    ExampleApplet::run(settings)
 }
-
-// static CUSTOM_THEME: OnceCell<Theme> = OnceCell::new();
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 enum ThemeType {
@@ -32,7 +21,7 @@ enum ThemeType {
 }
 
 #[derive(Default)]
-struct Styling {
+struct ExampleApplet {
     custom_theme: Theme,
     theme: Theme,
     input_value: String,
@@ -52,7 +41,7 @@ enum Message {
     TogglerToggled(bool),
 }
 
-impl Application for Styling {
+impl Application for ExampleApplet {
     type Message = Message;
     type Theme = Theme;
     type Executor = executor::Default;
@@ -60,7 +49,7 @@ impl Application for Styling {
     
     fn new(_flags: ()) -> (Self, Command<Message>) {
         (
-            Styling::default(),
+            ExampleApplet::default(),
             Command::none(),
         )
     }
