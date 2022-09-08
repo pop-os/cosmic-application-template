@@ -33,7 +33,7 @@ checksum = "aae1277d39aeec15cb388266ecc24b11c80469deae6067e17a1a7aa9e5c1f234"
 [[package]]
 name = "adw-user-colors-lib"
 version = "0.1.0"
-source = "git+https://github.com/pop-os/user-color-editor#ee7deb99441e1d5f3b33a40dd68322d45c627f0a"
+source = "git+https://github.com/pop-os/user-color-editor#e36b0fc3c1e9065446a000cb5b8e1095fbbbea24"
 dependencies = [
  "anyhow",
  "csscolorparser",
@@ -403,7 +403,6 @@ name = "cosmic-application-template"
 version = "0.1.0"
 dependencies = [
  "adw-user-colors-lib",
- "csscolorparser",
  "futures",
  "i18n-embed",
  "i18n-embed-fl",
@@ -412,7 +411,6 @@ dependencies = [
  "iced_style",
  "log",
  "once_cell",
- "palette",
  "pretty_env_logger",
  "rust-embed",
  "xdg",
@@ -2105,9 +2103,9 @@ dependencies = [
 
 [[package]]
 name = "percent-encoding"
-version = "2.1.0"
+version = "2.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d4fd5641d01c8f18a23da7b6fe29298ff4b55afcccdf78973b24cf3175fee32e"
+checksum = "478c572c3d73181ff3c2539045f6eb99e5491218eae919370993b890cdbdd98e"
 
 [[package]]
 name = "pest"
