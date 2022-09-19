@@ -8,6 +8,7 @@ Build-Depends:
   rustc (>=1.57),
   cargo,
   meson,
+  libgtk-4-dev,
   pkg-config,
   desktop-file-utils,
 Standards-Version: 4.3.0
