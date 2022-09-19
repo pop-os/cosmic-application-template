@@ -5,9 +5,9 @@ authors = ["Ashley Wulber <ashley@system76.com>"]
 edition = "2021"
 
 [dependencies]
-iced = { git = "https://github.com/wash2/iced", features = ["wgpu", "default_system_font", "palette", "svg", "image", "tokio"], branch = "custom-theme" }
-iced_native = { git = "https://github.com/wash2/iced", branch = "custom-theme"  }
-iced_style = { git = "https://github.com/wash2/iced", branch = "custom-theme"  }
+iced = { git = "https://github.com/wash2/iced", features = ["wgpu", "default_system_font", "palette", "svg", "image", "tokio"], branch = "fix_window_resize" }
+iced_native = { git = "https://github.com/wash2/iced", branch = "fix_window_resize"  }
+iced_style = { git = "https://github.com/wash2/iced", branch = "fix_window_resize"  }
 adw-user-colors-lib = { git = "https://github.com/pop-os/user-color-editor" }
 
 log = "0.4"
