@@ -1,0 +1,29 @@
+Format: 1.8
+Date: Thu, 07 Apr 2022 09:39:19 -0700
+Source: cosmic-bg
+Binary: cosmic-bg
+Built-For-Profiles: noudeb
+Architecture: amd64
+Version: 0.1.0
+Distribution: UNRELEASED
+Urgency: medium
+Maintainer: Ashley Wulber <ashley@system76.com>
+Changed-By: Ashley Wulber <ashley@system76.com>
+Description:
+ cosmic-bg  - Cosmic Background
+Changes:
+ cosmic-bg (0.1.0) UNRELEASED; urgency=medium
+ .
+   * Initial release.
+Checksums-Sha1:
+ 5efb5a0766379c53c5bcb0d4237767478606966b 994862 cosmic-bg-dbgsym_0.1.0_amd64.ddeb
+ b8c7b55fb93e8a7ff224bc15cd5d145c3cc24580 46566 cosmic-bg_0.1.0_amd64.buildinfo
+ 05e579f3fc120f9a0ce7dc2f6b96d7c83415f100 947746 cosmic-bg_0.1.0_amd64.deb
+Checksums-Sha256:
+ 9c578984fefcdb3e1697bb055d9d233af4353c5240cd03ba9b9dc3d9a6fdf0ac 994862 cosmic-bg-dbgsym_0.1.0_amd64.ddeb
+ 1a965b4ebd3a9c40b30173e4f2616bf4744a81792f4f438043a30c3c12f19322 46566 cosmic-bg_0.1.0_amd64.buildinfo
+ aea32d241d963e6d1a7f834b5c1e29b50d1eb19fc40289145811300cd296a24b 947746 cosmic-bg_0.1.0_amd64.deb
+Files:
+ d12094da7e45d3e5bdb086f00e500a6a 994862 debug optional cosmic-bg-dbgsym_0.1.0_amd64.ddeb
+ 91d32344627781487dcd5d30cb98ea11 46566 admin optional cosmic-bg_0.1.0_amd64.buildinfo
+ f30b04f4a4c70c1bdc5a74e0b1c35e07 947746 admin optional cosmic-bg_0.1.0_amd64.deb
