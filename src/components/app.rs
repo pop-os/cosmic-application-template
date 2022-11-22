@@ -1,30 +1,20 @@
-use adw_user_colors_lib::notify::*;
-use iced::theme::palette::Extended;
-use iced::theme::Palette;
-use iced::widget::{
-    button, checkbox, column, container, horizontal_rule, progress_bar, radio, row, scrollable,
-    slider, text, text_input, toggler, vertical_rule, vertical_space,
+use cosmic::iced::widget::{
+    button, checkbox, column, container, progress_bar, row, scrollable, slider, text_input,
+    toggler, vertical_rule, vertical_space,
 };
-use iced::{Alignment, Element, Length, Settings, Theme, Application, executor, Command, Subscription};
+use cosmic::iced::{executor, Alignment, Application, Command, Length, Settings};
+use cosmic::{Element, Theme};
+use iced_sctk::application::SurfaceIdWrapper;
 
 use crate::config;
 
-pub fn run() -> iced::Result {
-    let mut settings = Settings::default();
-    settings.window.decorations = false;
+pub fn run() -> cosmic::iced::Result {
+    let settings = Settings::default();
     CosmicApplicationTemplate::run(settings)
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
-enum ThemeType {
-    Light,
-    Dark,
-    Custom,
 }
 
 #[derive(Default)]
 struct CosmicApplicationTemplate {
-    custom_theme: Theme,
     theme: Theme,
     input_value: String,
     slider_value: f32,
@@ -34,13 +24,12 @@ struct CosmicApplicationTemplate {
 
 #[derive(Debug, Clone)]
 enum Message {
-    ThemeChanged(ThemeType),
-    PaletteChanged(Palette),
     InputChanged(String),
     ButtonPressed,
     SliderChanged(f32),
     CheckboxToggled(bool),
     TogglerToggled(bool),
+    Closed(SurfaceIdWrapper),
 }
 
 impl Application for CosmicApplicationTemplate {
@@ -48,59 +37,28 @@ impl Application for CosmicApplicationTemplate {
     type Theme = Theme;
     type Executor = executor::Default;
     type Flags = ();
-    
+
     fn new(_flags: ()) -> (Self, Command<Message>) {
-        (
-            CosmicApplicationTemplate::default(),
-            Command::none(),
-        )
+        (CosmicApplicationTemplate::default(), Command::none())
     }
 
     fn title(&self) -> String {
         config::APP_ID.to_string()
     }
 
-    fn update(&mut self, message: Message) -> Command<Message>{
+    fn update(&mut self, message: Message) -> Command<Message> {
         match message {
-            Message::ThemeChanged(theme) => {
-                self.theme = match theme {
-                    ThemeType::Light => Theme::Light,
-                    ThemeType::Dark => Theme::Dark,
-                    ThemeType::Custom => self.custom_theme,
-                }
-            }
             Message::InputChanged(value) => self.input_value = value,
             Message::ButtonPressed => {}
             Message::SliderChanged(value) => self.slider_value = value,
             Message::CheckboxToggled(value) => self.checkbox_value = value,
             Message::TogglerToggled(value) => self.toggler_value = value,
-            Message::PaletteChanged(palette) => {self.custom_theme = Theme::Custom {
-                palette,
-                extended: Extended::generate(palette),
-            }},
+            Message::Closed(_) => todo!(),
         }
         Command::none()
     }
 
-    fn view(&self) -> Element<Message> {
-        let choose_theme = [ThemeType::Light, ThemeType::Dark, ThemeType::Custom]
-            .iter()
-            .fold(
-                column![text("Choose a theme:")].spacing(10),
-                |column, theme| {
-                    column.push(radio(
-                        format!("{:?}", theme),
-                        *theme,
-                        Some(match self.theme {
-                            Theme::Light => ThemeType::Light,
-                            Theme::Dark => ThemeType::Dark,
-                            Theme::Custom { .. } => ThemeType::Custom,
-                        }),
-                        Message::ThemeChanged,
-                    ))
-                },
-            );
-
+    fn view(&self, _: SurfaceIdWrapper) -> Element<Message> {
         let text_input = text_input(
             "Type something...",
             &self.input_value,
@@ -138,8 +96,6 @@ impl Application for CosmicApplicationTemplate {
         .spacing(10);
 
         let content = column![
-            choose_theme,
-            horizontal_rule(38),
             row![text_input, button].spacing(10),
             slider,
             progress_bar,
@@ -164,14 +120,11 @@ impl Application for CosmicApplicationTemplate {
             .into()
     }
 
-    fn subscription(&self) -> Subscription<Message> {
-        theme(0).map(|(_, theme_update)| match theme_update {
-            ThemeUpdate::Palette(palette) => Message::PaletteChanged(palette),
-            ThemeUpdate::Errored => todo!(),
-        })
-    }
-
     fn theme(&self) -> Theme {
         self.theme
+    }
+
+    fn close_requested(&self, id: iced_sctk::application::SurfaceIdWrapper) -> Self::Message {
+        Message::Closed(id)
     }
 }

@@ -5,13 +5,11 @@ authors = ["Ashley Wulber <ashley@system76.com>"]
 edition = "2021"
 
 [dependencies]
-iced = { git = "https://github.com/wash2/iced", features = ["wgpu", "default_system_font", "palette", "svg", "image", "tokio"], branch = "fix_window_resize" }
-iced_native = { git = "https://github.com/wash2/iced", branch = "fix_window_resize"  }
-iced_style = { git = "https://github.com/wash2/iced", branch = "fix_window_resize"  }
-adw-user-colors-lib = { git = "https://github.com/pop-os/user-color-editor" }
-
-log = "0.4"
+libcosmic = { git = "https://github.com/pop-os/libcosmic/", branch = "sctk-cosmic-design-system", default-features = false, features = ["wayland"] }
+iced_sctk = { git = "https://github.com/pop-os/iced-sctk" }
+tokio = { version = "1.17.0", features = ["sync", "rt", "rt-multi-thread", "process"] }
 pretty_env_logger = "0.4"
+log = "0.4"
 once_cell = "1.9"
 futures = "0.3.21"
 xdg = "2.4.0"
@@ -19,4 +17,3 @@ xdg = "2.4.0"
 i18n-embed = { version = "0.13.4", features = ["fluent-system", "desktop-requester"] }
 i18n-embed-fl = "0.6.4"
 rust-embed = "6.3.0"
-

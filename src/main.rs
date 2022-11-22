@@ -13,7 +13,7 @@ use crate::{
     config::{PROFILE, VERSION},
 };
 
-fn main() -> iced::Result {
+fn main() -> cosmic::iced::Result {
     // Initialize logger
     pretty_env_logger::init();
     info!("Cosmic Application Template ({})", APP_ID);
