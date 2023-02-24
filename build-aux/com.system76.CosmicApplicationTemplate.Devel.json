@@ -1,19 +1,14 @@
 {
     "app-id": "com.system76.CosmicApplicationTemplate.Devel",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "42",
-    "sdk": "org.gnome.Sdk",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "22.08",
+    "sdk": "org.freedesktop.Sdk",
     "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
     "command": "cosmic-application-template",
     "finish-args" : [
         "--socket=wayland",
-        "--talk-name=org.gtk.vfs.*",
-        "--filesystem=xdg-run/gvfsd",
         "--device=dri",
-        "--env=RUST_LOG=user_color_editor=debug",
-        "--env=G_MESSAGES_DEBUG=none",
-        "--env=RUST_BACKTRACE=1",
-        "--filesystem=xdg-config/gtk-4.0:ro"
+        "--env=RUST_BACKTRACE=1"
     ],
     "build-options" : {
         "append-path" : "/usr/lib/sdk/rust-stable/bin",
@@ -28,14 +23,18 @@
     "modules": [
         {
             "name": "cosmic-application-template",
-            "buildsystem": "meson",
-            "run-tests": true,
-            "config-opts": ["-Dvendor=false"],
+            "buildsystem": "simple",
             "sources": [
                 {
                     "type": "dir",
                     "path": "../"
                 }
+            ],
+            "build-commands": [
+                "cargo install --root=/app just",
+                "just",
+                "just rootdir=/app prefix= install",
+		"rm /app/bin/just"
             ]
         }
     ]
