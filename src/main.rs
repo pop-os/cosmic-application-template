@@ -1,5 +1,4 @@
 mod components;
-#[rustfmt::skip]
 mod config;
 mod localize;
 
@@ -8,16 +7,13 @@ use log::info;
 
 use localize::localize;
 
-use crate::{
-    components::app,
-    config::{PROFILE, VERSION},
-};
+use crate::{components::app, config::VERSION};
 
 fn main() -> cosmic::iced::Result {
     // Initialize logger
     pretty_env_logger::init();
     info!("Cosmic Application Template ({})", APP_ID);
-    info!("Version: {} ({})", VERSION, PROFILE);
+    info!("Version: {}", VERSION);
 
     // Prepare i18n
     localize();
